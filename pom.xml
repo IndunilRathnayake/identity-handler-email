@@ -41,13 +41,7 @@
         <module>components/email-send-mgt/org.wso2.carbon.identity.email.send.mgt</module>
         <module>components/email-mgt/org.wso2.carbon.email.mgt</module>
         <module>components/email-mgt/org.wso2.carbon.email.mgt.ui</module>
+        <module>email-sendw</module>
+        <module>org.wso2.carbon.identity.email.send</module>
     </modules>
-
-<dependencies>
-        <dependency>
-            <groupId>org.wso2.carbon.identity</groupId>
-            <artifactId>org.wso2.carbon.identity.event</artifactId>
-            <version>5.0.9-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 </project>
