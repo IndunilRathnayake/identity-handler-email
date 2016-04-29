@@ -38,9 +38,7 @@
     <url>http://wso2.org</url>
 
     <modules>
-        <module>components/email-send-mgt/org.wso2.carbon.identity.email.send.mgt</module>
-        <module>components/email-mgt/org.wso2.carbon.email.mgt</module>
-        <module>components/email-mgt/org.wso2.carbon.email.mgt.ui</module>
+        <module>/components/email-send-mgt/org.wso2.carbon.identity.email.mgt</module>
     </modules>
 
 <dependencies>
