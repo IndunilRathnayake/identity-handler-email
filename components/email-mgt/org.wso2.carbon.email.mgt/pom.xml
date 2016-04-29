@@ -29,6 +29,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>org.wso2.carbon.email.mgt</artifactId>
+    <version>5.0.9-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>WSO2 Carbon - Email Management</name>
     <description>A custom wso2 products or solution</description>
@@ -73,6 +74,16 @@
         <dependency>
             <groupId>org.wso2.carbon.commons</groupId>
             <artifactId>org.wso2.carbon.tenant.common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity</groupId>
+            <artifactId>org.wso2.carbon.identity.event</artifactId>
+            <version>5.0.9-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity</groupId>
+            <artifactId>org.wso2.carbon.identity.mgt</artifactId>
+            <version>5.0.9-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

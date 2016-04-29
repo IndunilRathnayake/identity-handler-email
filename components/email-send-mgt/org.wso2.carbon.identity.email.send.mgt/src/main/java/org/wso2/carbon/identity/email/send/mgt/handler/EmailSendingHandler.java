@@ -12,8 +12,12 @@ import org.wso2.carbon.email.mgt.dto.EmailTemplateDTO;
 import org.wso2.carbon.email.mgt.exceptions.I18nMgtEmailConfigException;
 import org.wso2.carbon.event.output.adapter.core.*;
 import org.wso2.carbon.event.output.adapter.core.exception.OutputEventAdapterException;
+import org.wso2.carbon.event.output.adapter.core.internal.util.EventAdapterConfigHelper;
 import org.wso2.carbon.event.output.adapter.email.EmailEventAdapter;
 import org.wso2.carbon.event.output.adapter.email.EmailEventAdapterFactory;
+import org.wso2.carbon.identity.email.send.mgt.util.Notification;
+import org.wso2.carbon.identity.email.send.mgt.util.NotificationBuilder;
+import org.wso2.carbon.identity.email.send.mgt.util.NotificationData;
 import org.wso2.carbon.identity.event.EventMgtException;
 import org.wso2.carbon.identity.event.event.Event;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
@@ -40,7 +44,7 @@ public class EmailSendingHandler extends AbstractEventHandler {
 
         Map<String, Object> eventProperties = event.getEventProperties();
         int tenantId = Integer.valueOf((String) eventProperties.get("tenantId"));
-        NotificationData emailNotificationData = (String) eventProperties.get("notificationData");
+        NotificationData emailNotificationData = (NotificationData) eventProperties.get("notificationData");
         String template_type = (String) eventProperties.get("template_type");
 
         ConfigBuilder configBuilder = ConfigBuilder.getInstance();
@@ -50,9 +54,8 @@ public class EmailSendingHandler extends AbstractEventHandler {
                             StorageType.REGISTRY,
                             tenantId);
         } catch (Exception e1) {
-            throw new UserStoreException(
-                    "Could not load the email template configuration for user : "
-                            + userName, e1);
+            throw new EventMgtException(
+                    "Could not load the email template configuration for user ", e1);
         }
 
         try {
@@ -119,12 +122,8 @@ public class EmailSendingHandler extends AbstractEventHandler {
                 log.debug("Email content : " + emailBody);
             }
             log.info("User credentials configuration mail has been sent to " + emailNotification.getSendTo());
-        } catch (AxisFault axisFault) {
-            log.error("Failed Sending Email", axisFault);
         } catch (I18nMgtEmailConfigException e) {
             log.error("Failed Sending Email", e);
-        } finally {
-            PrivilegedCarbonContext.endTenantFlow();
         }
         return true;
     }
