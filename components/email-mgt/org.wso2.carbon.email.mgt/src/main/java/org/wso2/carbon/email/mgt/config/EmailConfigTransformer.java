@@ -52,7 +52,6 @@ public class EmailConfigTransformer {
         Set<String> keySet = props.stringPropertyNames();
         String emailTemplateLanguage;
         String emailTemplateDisplayType;
-        String emailTemplateLocale;
         String emailContentType;
 
         for (String key : keySet) {
@@ -69,9 +68,10 @@ public class EmailConfigTransformer {
             }
 
             String[] emailTypeKeyArray = emailTemplateKeyArray[0].split("\\.");
-            emailTemplateLocale = emailTypeKeyArray[1];
-            Locale localeObject = new Locale(emailTemplateLocale);
-            emailTemplateLanguage = localeObject.getDisplayLanguage();
+            String [] emailLocalCodeArray = emailTypeKeyArray[1].split("_");
+            Locale localeObject = new Locale(emailLocalCodeArray[0],emailLocalCodeArray[1]);
+
+            emailTemplateLanguage = localeObject.getDisplayName();
             String subject = emailTemplateContent[0];
             String body = emailTemplateContent[1];
             String footer = emailTemplateContent[2];

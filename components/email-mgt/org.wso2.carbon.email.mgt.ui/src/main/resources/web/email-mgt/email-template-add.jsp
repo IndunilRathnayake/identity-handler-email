@@ -33,6 +33,7 @@
 
 <%
     String username = request.getParameter("username");
+    Locale[] availableLocale = Locale.getAvailableLocales();
 
     if (username == null) {
         username = (String) request.getSession().getAttribute("logged-user");
@@ -40,6 +41,9 @@
 %>
 
 <%@page import="org.wso2.carbon.user.core.UserCoreConstants" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="org.owasp.encoder.Encode" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <fmt:bundle
         basename="org.wso2.carbon.email.mgt.ui.i18n.Resources">
     <carbon:breadcrumb label="email.add"
@@ -140,16 +144,37 @@
                                         <option>text/plain</option>
                                     </select></td>
                                 </tr>
-                                <tr>
-                                    <td class="leftCol-med labelField"><fmt:message
-                                            key="email.template.locale"/></td>
-                                    <td><select id="emailLocale" name="emailLocale" class="leftCol-med">
-                                        <option value="en">English</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="ja">Japanese</option>
-                                        <option value="fr">French</option>
-                                    </select></td>
-                                </tr>
+                                <%--<tr>--%>
+                                    <%--<td class="leftCol-med labelField"><fmt:message--%>
+                                            <%--key="email.template.locale"/></td>--%>
+                                    <%--<td><select id="emailLocale" name="emailLocale" class="leftCol-med">--%>
+                                        <%--<option value="en">English</option>--%>
+                                        <%--<option value="es">Spanish</option>--%>
+                                        <%--<option value="ja">Japanese</option>--%>
+                                        <%--<option value="fr">French</option>--%>
+                                    <%--</select></td>--%>
+                                <%--</tr>--%>
+                                        <tr>
+                                            <td class="leftCol-med labelField"><fmt:message
+                                                    key="email.template.locale"/></td>
+                                            <td><select id="emailLocale" name="emailLocale" class="leftCol-med">
+                                                <%
+                                                    for (Locale aLocale : availableLocale) {
+                                                        String languageCode = aLocale.getLanguage();
+                                                        String countryCode = aLocale.getCountry();
+                                                        if (StringUtils.isBlank(countryCode)) {
+                                                            countryCode = languageCode;
+                                                        }
+                                                        String localecode = languageCode + "_" + countryCode;
+                                                %>
+                                                <option value="<%=Encode.forHtmlAttribute(localecode)%>">
+                                                    <%=Encode.forHtmlContent(aLocale.getDisplayName())%>
+                                                </option>
+                                                <%
+                                                    }
+                                                %>
+                                            </select></td>
+                                        </tr>
                                 <tr>
                                     <td class="leftCol-small"><fmt:message key='email.template.subject'/><font
                                             color="red">*</font></td>

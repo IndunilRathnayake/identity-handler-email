@@ -44,7 +44,7 @@
     String localeParam = request.getParameter("locale");
 
     if (localeParam == null) {
-        localeParam = "English";
+        localeParam = "English (United States)";
     }
 
     String username = request.getParameter("username");

@@ -26,7 +26,7 @@ public class I18nMgtConstants {
     private I18nMgtConstants() {
     }
 
-    public static final String EMAIL_TEMPLATE_PATH = "identity/Email";
+    public static final String EMAIL_TEMPLATE_PATH = "/identity/Email";
 
     public static final String EMAIL_CONF_DIRECTORY = "email";
 
